@@ -1,0 +1,48 @@
+.section { padding: 120px 64px; background: #080808; }
+.wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; }
+
+.left, .right {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.left.in, .right.in { opacity: 1; transform: none; }
+
+.eyebrow { display: flex; align-items: center; gap: 12px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #C0112B; margin-bottom: 14px; }
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: #C0112B; }
+.sectionH { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(2rem, 3.8vw, 3.6rem); font-weight: 300; line-height: 1.14; color: #EDEAE4; margin-bottom: 56px; }
+.sectionH em { font-style: italic; }
+
+.info { display: flex; flex-direction: column; gap: 28px; }
+.ciLabel { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #C0112B; margin-bottom: 5px; }
+.ciVal { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 300; color: #EDEAE4; }
+
+.form { display: flex; flex-direction: column; gap: 14px; }
+.fgrp { display: flex; flex-direction: column; gap: 7px; }
+.flabel { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #555; }
+.finput {
+  background: #0e0e0e;
+  border: 1px solid rgba(255,255,255,.07);
+  color: #EDEAE4;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+  resize: none;
+}
+.finput:focus { border-color: #C0112B; }
+.finput::placeholder { color: #2a2a2a; }
+.submit {
+  background: #C0112B; color: #fff; border: none;
+  padding: 15px; font-size: 10.5px; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  transition: background .22s; margin-top: 4px; cursor: pointer;
+}
+.submit:hover { background: #9e0e23; }
+
+.thanks { padding: 48px 0; }
+.thanksText { font-size: 14px; color: rgba(237,234,228,.5); font-weight: 300; line-height: 1.8; margin-top: 12px; }
+
+@media (max-width: 1100px) { .wrap { grid-template-columns: 1fr; gap: 56px; } }
+@media (max-width: 768px) { .section { padding: 80px 24px; } }

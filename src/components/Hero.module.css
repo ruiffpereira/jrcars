@@ -1,0 +1,116 @@
+.hero {
+  height: 100svh;
+  min-height: 480px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=85') center/cover no-repeat;
+  filter: brightness(.38);
+  transform: scale(1.04);
+  transition: transform 7s ease;
+}
+.loaded .bg { transform: scale(1); }
+.grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,.92) 0%, rgba(8,8,8,.1) 55%, transparent 100%);
+}
+.body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 64px 64px;
+  animation: heroFade .9s ease both;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #C0112B;
+  margin-bottom: 22px;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: #C0112B;
+}
+.body h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3rem, 6.5vw, 6.2rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin-bottom: 24px;
+  color: #EDEAE4;
+}
+.body h1 em { font-style: italic; font-weight: 300; }
+.sub {
+  font-size: 13.5px;
+  color: rgba(237,234,228,.45);
+  font-weight: 300;
+  max-width: 380px;
+  margin-bottom: 44px;
+}
+.actions { display: flex; align-items: center; gap: 20px; }
+.btnFill {
+  background: #C0112B;
+  color: #fff;
+  border: none;
+  padding: 14px 30px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: background .22s;
+}
+.btnFill:hover { background: #9e0e23; }
+.btnText {
+  background: none;
+  border: none;
+  color: rgba(237,234,228,.5);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color .2s;
+  padding: 0;
+}
+.btnText:hover { color: #EDEAE4; }
+.btnText svg { transition: transform .22s; }
+.btnText:hover svg { transform: translateX(4px); }
+.scroll {
+  position: absolute;
+  right: 64px;
+  bottom: 64px;
+  writing-mode: vertical-rl;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.scroll::after {
+  content: '';
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, #555, transparent);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .body { padding: 0 24px 72px; }
+  .scroll { display: none; }
+}
