@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Trust from '../components/Trust.astro';
+import Catalog from '../components/Catalog.astro';
+import Financing from '../components/Financing.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout>
+  <Nav />
+  <main>
+    <Hero />
+    <Trust />
+    <Catalog />
+    <Financing />
+    <Services />
+    <About />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const fmt = (n) => n.toLocaleString('pt-PT');
+
+  /* nav scroll state */
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => navEl?.classList.toggle('scrolled', window.scrollY > 30));
+
+  /* smooth scroll helper */
+  function navTo(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-nav]').forEach((b) =>
+    b.addEventListener('click', () => navTo(b.getAttribute('data-nav')))
+  );
+
+  /* mobile menu */
+  const mob = document.getElementById('mobMenu');
+  const hbg = document.getElementById('hbg');
+  const openMob = () => { mob?.classList.add('open'); hbg?.setAttribute('aria-expanded', 'true'); };
+  const closeMob = () => { mob?.classList.remove('open'); hbg?.setAttribute('aria-expanded', 'false'); };
+  hbg?.addEventListener('click', openMob);
+  document.getElementById('mobClose')?.addEventListener('click', closeMob);
+  document.querySelectorAll('[data-mob]').forEach((a) => a.addEventListener('click', closeMob));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMob(); });
+
+  /* reveal on scroll */
+  const ro = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  }), { threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach((el) => ro.observe(el));
+
+  /* catalog: filter + sort */
+  const grid = document.getElementById('grid');
+  const bSel = document.getElementById('fBrand');
+  const fSel = document.getElementById('fFuel');
+  const pSel = document.getElementById('fPrice');
+  const kSel = document.getElementById('fKm');
+  const sortSel = document.getElementById('fSort');
+  const countEl = document.getElementById('count');
+
+  function applySort() {
+    const mode = sortSel.value;
+    [...grid.querySelectorAll('.card')].sort((a, b) => {
+      if (mode === 'price-asc') return +a.dataset.price - +b.dataset.price;
+      if (mode === 'price-desc') return +b.dataset.price - +a.dataset.price;
+      if (mode === 'km-asc') return +a.dataset.km - +b.dataset.km;
+      return +b.dataset.year - +a.dataset.year;
+    }).forEach((c) => grid.appendChild(c));
+  }
+  function applyFilters() {
+    const b = bSel.value, f = fSel.value, maxP = +pSel.value, maxK = +kSel.value;
+    let visible = 0;
+    grid.querySelectorAll('.card').forEach((c) => {
+      const ok = (b === 'all' || c.dataset.brand === b) &&
+                 (f === 'all' || c.dataset.fuel === f) &&
+                 (+c.dataset.price <= maxP) && (+c.dataset.km <= maxK);
+      c.classList.toggle('hide', !ok);
+      if (ok) visible++;
+    });
+    let nr = document.getElementById('noResults');
+    if (visible === 0) {
+      if (!nr) { nr = document.createElement('p'); nr.id = 'noResults'; nr.className = 'no-results'; nr.textContent = 'Nenhuma viatura corresponde aos filtros selecionados.'; grid.appendChild(nr); }
+    } else if (nr) nr.remove();
+    countEl.innerHTML = '<b>' + visible + '</b> ' + (visible === 1 ? 'viatura disponível' : 'viaturas disponíveis');
+  }
+  [bSel, fSel, pSel, kSel].forEach((s) => s.addEventListener('change', applyFilters));
+  sortSel.addEventListener('change', applySort);
+  document.getElementById('fClear')?.addEventListener('click', () => {
+    bSel.value = 'all'; fSel.value = 'all'; pSel.value = '999999'; kSel.value = '999999'; sortSel.value = 'recent';
+    applySort(); applyFilters();
+  });
+  document.getElementById('filters')?.addEventListener('submit', (e) => e.preventDefault());
+  applySort(); applyFilters();
+
+  /* hero quick search -> catalog */
+  document.getElementById('qsearch')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    bSel.value = document.getElementById('qBrand').value;
+    fSel.value = document.getElementById('qFuel').value;
+    pSel.value = document.getElementById('qPrice').value;
+    applyFilters();
+    navTo('catalogo');
+  });
+
+  /* financing simulator */
+  const sPrice = document.getElementById('sPrice');
+  const sDown = document.getElementById('sDown');
+  const sTerm = document.getElementById('sTerm');
+  const TAEG = 0.089;
+  function calcFin() {
+    let price = +sPrice.value, down = +sDown.value, term = +sTerm.value;
+    if (down > price) { down = price; sDown.value = String(price); }
+    const financed = Math.max(0, price - down);
+    const r = TAEG / 12;
+    const monthly = financed === 0 ? 0 : (financed * r) / (1 - Math.pow(1 + r, -term));
+    const total = monthly * term + down;
+    document.getElementById('vPrice').innerHTML = '€ ' + fmt(price);
+    document.getElementById('vDown').innerHTML = '€ ' + fmt(down);
+    document.getElementById('vTerm').innerHTML = term + ' <small>meses</small>';
+    document.getElementById('vMonthly').innerHTML = '€ ' + fmt(Math.round(monthly)) + ' <small>/mês</small>';
+    document.getElementById('lFin').textContent = '€ ' + fmt(financed);
+    document.getElementById('lTerm').textContent = term + ' meses';
+    document.getElementById('lTotal').textContent = '€ ' + fmt(Math.round(total));
+  }
+  [sPrice, sDown, sTerm].forEach((s) => s.addEventListener('input', calcFin));
+  calcFin();
+
+  /* contact form */
+  document.getElementById('cform')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.currentTarget.innerHTML = '<div class="cthanks"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></div><h3>Mensagem enviada</h3><p>Obrigado pelo contacto. A nossa equipa responderá em breve.</p></div>';
+  });
+</script>

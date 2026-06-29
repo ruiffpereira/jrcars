@@ -1,0 +1,27 @@
+---
+const items = [
+  { t: 'Garantia 18+ meses', s: 'Em todas as viaturas', d: 'M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z M9 12l2 2 4-4' },
+  { t: 'Financiamento', s: 'Até 120 meses', rect: true },
+  { t: 'Entrega em casa', s: 'Em todo o país', d: 'M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z' },
+  { t: 'Aceitamos retoma', s: 'Pelo melhor valor', d: 'M4 12a8 8 0 0114-5M20 12a8 8 0 01-14 5 M17 2v5h-5M7 22v-5h5' },
+];
+---
+<section class="trust" aria-label="Vantagens JRcars">
+  <div class="wrap trust-in">
+    {items.map((it) => (
+      <div class="trust-item">
+        <span class="trust-ico">
+          {it.rect ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d={it.d} /></svg>
+          )}
+        </span>
+        <div>
+          <p class="trust-t">{it.t}</p>
+          <p class="trust-s">{it.s}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

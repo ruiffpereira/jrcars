@@ -1,0 +1,33 @@
+---
+const services = [
+  { t: 'Financiamento', x: 'Intermediação de crédito transparente, com prazos até 120 meses.', d: 'rect' },
+  { t: 'Garantia 18+ meses', x: 'Viaturas certificadas, com garantia mínima de 18 meses e histórico comprovado.', d: 'M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z M9 12l2 2 4-4' },
+  { t: 'Oficina própria', x: 'Serviço pós-venda e manutenção em oficinas totalmente equipadas.', d: 'gear' },
+  { t: 'Entregamos em casa', x: 'Receba o seu automóvel onde quiser, em todo o país.', d: 'M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z' },
+  { t: 'Aceitamos retoma', x: 'Avaliamos o seu carro e damos-lhe o melhor valor como entrada.', d: 'M4 12a8 8 0 0114-5M20 12a8 8 0 01-14 5 M17 2v5h-5M7 22v-5h5' },
+  { t: 'Consultoria', x: 'Aconselhamento personalizado para encontrar a viatura certa para si.', d: 'person' },
+];
+---
+<section id="servicos" aria-labelledby="serv-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">O Que Oferecemos</p>
+      <h2 id="serv-h">Tudo num só lugar</h2>
+      <p>Acompanhamos todo o processo, da escolha à entrega — e muito depois disso.</p>
+    </div>
+    <div class="serv-grid">
+      {services.map((s) => (
+        <div class="serv rv">
+          <div class="serv-ico">
+            {s.d === 'rect' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>}
+            {s.d === 'gear' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>}
+            {s.d === 'person' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>}
+            {s.d.startsWith('M') && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d={s.d} /></svg>}
+          </div>
+          <h3 class="serv-title">{s.t}</h3>
+          <p class="serv-text">{s.x}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

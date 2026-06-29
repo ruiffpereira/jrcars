@@ -1,0 +1,106 @@
+---
+import { cars, brands, fuels, fmt } from '../data/cars.js';
+---
+<section id="catalogo" aria-labelledby="catalogo-h">
+  <div class="wrap">
+    <div class="cat-head rv">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Stock Disponível</p>
+        <h2 id="catalogo-h">As Nossas Viaturas</h2>
+      </div>
+    </div>
+
+    <form class="filters rv" id="filters" aria-label="Filtrar viaturas">
+      <div class="f-grp">
+        <label for="fBrand">Marca</label>
+        <div class="f-sel-wrap">
+          <select class="f-sel" id="fBrand">
+            <option value="all">Todas as marcas</option>
+            {brands.map((b) => <option value={b}>{b}</option>)}
+          </select>
+        </div>
+      </div>
+      <div class="f-grp">
+        <label for="fFuel">Combustível</label>
+        <div class="f-sel-wrap">
+          <select class="f-sel" id="fFuel">
+            <option value="all">Todos</option>
+            {fuels.map((f) => <option value={f}>{f}</option>)}
+          </select>
+        </div>
+      </div>
+      <div class="f-grp">
+        <label for="fPrice">Preço até</label>
+        <div class="f-sel-wrap">
+          <select class="f-sel" id="fPrice">
+            <option value="999999">Qualquer preço</option>
+            <option value="25000">Até € 25.000</option>
+            <option value="40000">Até € 40.000</option>
+            <option value="60000">Até € 60.000</option>
+            <option value="100000">Até € 100.000</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-grp">
+        <label for="fKm">Quilómetros até</label>
+        <div class="f-sel-wrap">
+          <select class="f-sel" id="fKm">
+            <option value="999999">Qualquer km</option>
+            <option value="20000">Até 20.000 km</option>
+            <option value="50000">Até 50.000 km</option>
+            <option value="100000">Até 100.000 km</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-grp">
+        <label for="fSort">Ordenar por</label>
+        <div class="f-sel-wrap">
+          <select class="f-sel" id="fSort">
+            <option value="recent">Mais recentes</option>
+            <option value="price-asc">Preço: menor primeiro</option>
+            <option value="price-desc">Preço: maior primeiro</option>
+            <option value="km-asc">Menos quilómetros</option>
+          </select>
+        </div>
+      </div>
+      <button class="f-clear" id="fClear" type="button">Limpar</button>
+    </form>
+
+    <p class="cat-count" id="count" aria-live="polite"></p>
+
+    <div class="grid" id="grid">
+      {cars.map((c) => (
+        <article
+          class="card"
+          data-brand={c.brand}
+          data-fuel={c.fuel}
+          data-price={c.price}
+          data-km={c.km}
+          data-year={c.year}
+        >
+          <div class="card-img">
+            <img src={c.img} width="700" height="481" alt={`${c.name} usado à venda`} loading="lazy" />
+            <div class="card-badges">
+              {c.semi ? <span class="badge semi">Seminovo</span> : <span class="badge">Usado</span>}
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-name">{c.name}</h3>
+            <div class="card-specs">
+              <span class="spec">{c.year}</span>
+              <span class="spec">{fmt(c.km)} km</span>
+              <span class="spec">{c.fuel}</span>
+            </div>
+            <div class="card-foot">
+              <div class="card-price">
+                <p class="pl">Desde</p>
+                <p class="pv">€ {fmt(c.price)}</p>
+              </div>
+              <button class="card-btn" data-nav="contacto" aria-label={`Pedir informações sobre ${c.name}`}>Detalhes</button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

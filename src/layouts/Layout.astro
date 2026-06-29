@@ -1,0 +1,20 @@
+---
+import SEO from '../components/SEO.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <SEO title={title} description={description} />
+  </head>
+  <body>
+    <a href="#catalogo" class="skip-link">Saltar para as viaturas</a>
+    <slot />
+  </body>
+</html>

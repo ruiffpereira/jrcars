@@ -1,0 +1,51 @@
+---
+const perks = [
+  ['Até 120 meses', '— prazos adaptados ao seu orçamento'],
+  ['Aceitamos retoma', '— o seu carro como entrada'],
+  ['Resposta em 24h', '— intermediação de crédito transparente'],
+];
+---
+<section id="financiamento" aria-labelledby="fin-h">
+  <div class="wrap fin-wrap">
+    <div class="rv">
+      <p class="eyebrow">Simulador</p>
+      <h2 id="fin-h" style="font-size:clamp(1.8rem,3vw,2.5rem)">Pague ao seu ritmo</h2>
+      <p style="font-size:15.5px;color:var(--muted);margin-top:14px;max-width:420px">Financiamento transparente e sem surpresas. Ajuste os valores e veja a sua mensalidade na hora.</p>
+      <div class="fin-perks">
+        {perks.map(([b, s]) => (
+          <div class="fin-perk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            <p><b>{b}</b> <span>{s}</span></p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="calc rv d1">
+      <p class="calc-h">Simulador de Financiamento</p>
+      <div class="slider-grp">
+        <div class="slider-top"><label class="slider-label" for="sPrice">Valor da viatura</label><span class="slider-val" id="vPrice"></span></div>
+        <input type="range" id="sPrice" min="5000" max="100000" step="500" value="32000" aria-label="Valor da viatura em euros" />
+      </div>
+      <div class="slider-grp">
+        <div class="slider-top"><label class="slider-label" for="sDown">Entrada inicial</label><span class="slider-val" id="vDown"></span></div>
+        <input type="range" id="sDown" min="0" max="50000" step="500" value="6000" aria-label="Entrada inicial em euros" />
+      </div>
+      <div class="slider-grp">
+        <div class="slider-top"><label class="slider-label" for="sTerm">Prazo</label><span class="slider-val" id="vTerm"></span></div>
+        <input type="range" id="sTerm" min="12" max="120" step="6" value="72" aria-label="Prazo em meses" />
+      </div>
+      <div class="fin-result" aria-live="polite">
+        <p class="fin-res-label">Mensalidade estimada</p>
+        <p class="fin-total" id="vMonthly"></p>
+        <div class="fin-lines">
+          <div class="fin-line"><span>Valor financiado</span><span id="lFin"></span></div>
+          <div class="fin-line"><span>Prazo</span><span id="lTerm"></span></div>
+          <div class="fin-line"><span>TAEG indicativa</span><span>8,9%</span></div>
+          <div class="fin-line"><span>Total a pagar</span><span id="lTotal"></span></div>
+        </div>
+        <p class="fin-note">* Simulação indicativa, sem caráter contratual. Sujeita a aprovação.</p>
+      </div>
+    </div>
+  </div>
+</section>

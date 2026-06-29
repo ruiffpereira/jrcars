@@ -1,0 +1,28 @@
+---
+const stats = [
+  ['15', '+', 'Anos no mercado'],
+  ['2.500', '', 'Viaturas entregues'],
+  ['98', '%', 'Clientes satisfeitos'],
+];
+---
+<section id="sobre" aria-labelledby="sobre-h">
+  <div class="wrap about-wrap">
+    <div class="about-text rv">
+      <p class="eyebrow">Quem Somos</p>
+      <h2 id="sobre-h" style="font-size:clamp(1.8rem,3vw,2.5rem)">Seriedade em cada negócio</h2>
+      <p style="margin-top:16px">A JRcars nasceu da convicção de que comprar um carro usado deve ser simples, transparente e seguro. Há mais de 15 anos que fazemos parte da vida dos nossos clientes.</p>
+      <p>Comercializamos apenas viaturas nacionais com histórico comprovado, inspecionadas ao detalhe antes de chegarem ao nosso espaço.</p>
+      <div class="stats">
+        {stats.map(([n, sup, l]) => (
+          <div>
+            <p class="stat-n">{n}{sup && <span>{sup}</span>}</p>
+            <p class="stat-l">{l}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="about-img rv d1">
+      <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=900&q=85" width="900" height="675" alt="Showroom da JRcars com viaturas em exposição" loading="lazy" />
+    </div>
+  </div>
+</section>

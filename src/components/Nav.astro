@@ -1,0 +1,33 @@
+---
+import { company } from '../data/cars.js';
+const phoneDisplay = company.phone.replace('+351', '').replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3').trim();
+---
+<nav id="nav" aria-label="Navegação principal">
+  <div class="wrap nav-in">
+    <a href="#" class="logo" aria-label="JRcars — página inicial">JR<span>cars</span></a>
+    <ul class="nav-links">
+      <li><a href="#catalogo">Viaturas</a></li>
+      <li><a href="#financiamento">Financiamento</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href={`tel:${company.phone}`} class="nav-phone" aria-label={`Telefonar para ${phoneDisplay}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+        {phoneDisplay}
+      </a>
+      <button class="nav-cta" data-nav="contacto">Contactar</button>
+    </div>
+    <button class="hamburger" id="hbg" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobMenu">&#9776;</button>
+  </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu" aria-label="Menu" role="dialog" aria-modal="true">
+  <button class="mob-close" id="mobClose" aria-label="Fechar menu">&#10005;</button>
+  <a href="#catalogo" data-mob>Viaturas</a>
+  <a href="#financiamento" data-mob>Financiamento</a>
+  <a href="#servicos" data-mob>Serviços</a>
+  <a href="#sobre" data-mob>Sobre</a>
+  <a href="#contacto" data-mob>Contacto</a>
+</div>

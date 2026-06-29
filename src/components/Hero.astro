@@ -1,0 +1,78 @@
+---
+import { brands, fuels, cars, fmt } from '../data/cars.js';
+// Viatura em destaque para o hero (Mercedes A 250 e)
+const feat = cars.find((c) => c.id === 'mercedes-a-250e') ?? cars[0];
+// Mensalidade indicativa: financiado a 120 meses, 10% de entrada, TAEG 8,9%
+const down = Math.round(feat.price * 0.1);
+const financed = feat.price - down;
+const r = 0.089 / 12;
+const monthly = Math.round((financed * r) / (1 - Math.pow(1 + r, -120)));
+---
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-chip"><i aria-hidden="true"></i> {cars.length} viaturas disponíveis · Lisboa &amp; Porto</span>
+      <h1>O seu próximo carro,<br />com toda a <b>confiança</b>.</h1>
+      <p class="hero-sub">Usados nacionais certificados, com histórico comprovado, garantia mínima de 18 meses e financiamento à sua medida.</p>
+      <form class="qsearch" id="qsearch" aria-label="Pesquisa rápida de viaturas">
+        <div class="qsearch-row">
+          <div class="qs-grp">
+            <label for="qBrand">Marca</label>
+            <div class="qs-sel-wrap">
+              <select class="qs-sel" id="qBrand">
+                <option value="all">Todas</option>
+                {brands.map((b) => <option value={b}>{b}</option>)}
+              </select>
+            </div>
+          </div>
+          <div class="qs-grp">
+            <label for="qFuel">Combustível</label>
+            <div class="qs-sel-wrap">
+              <select class="qs-sel" id="qFuel">
+                <option value="all">Todos</option>
+                {fuels.map((f) => <option value={f}>{f}</option>)}
+              </select>
+            </div>
+          </div>
+          <div class="qs-grp">
+            <label for="qPrice">Preço até</label>
+            <div class="qs-sel-wrap">
+              <select class="qs-sel" id="qPrice">
+                <option value="999999">Qualquer</option>
+                <option value="25000">€ 25.000</option>
+                <option value="40000">€ 40.000</option>
+                <option value="60000">€ 60.000</option>
+                <option value="100000">€ 100.000</option>
+              </select>
+            </div>
+          </div>
+          <button class="qs-btn" id="qBtn" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            Procurar
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo">
+        <img src={feat.img} width="900" height="675" alt={`${feat.name} — viatura em destaque`} fetchpriority="high" />
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <div class="hero-card-l">
+            <p class="n">Destaque</p>
+            <p class="s">{feat.name} · {feat.year}</p>
+          </div>
+          <p class="hero-card-p">€ {fmt(feat.price)}</p>
+        </div>
+        <div class="hero-card-fin">
+          <p class="fin-l">Desde <b>€ {fmt(monthly)}</b> /mês</p>
+          <button class="hero-fin-btn" data-nav="financiamento">
+            Simular financiamento
+            <svg viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

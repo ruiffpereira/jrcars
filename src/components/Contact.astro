@@ -1,0 +1,51 @@
+---
+import { company } from '../data/cars.js';
+const display = (p) => p.replace('+351', '').replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3').trim();
+---
+<section id="contacto" aria-labelledby="contacto-h">
+  <div class="wrap contact-wrap">
+    <div class="rv">
+      <p class="eyebrow">Onde Estamos</p>
+      <h2 id="contacto-h" style="font-size:clamp(1.8rem,3vw,2.5rem)">Visite-nos ou fale connosco</h2>
+      <address class="locations" style="font-style:normal">
+        {company.locations.map((l) => (
+          <div class="loc">
+            <p class="loc-name">JRcars <span>{l.city}</span></p>
+            <p class="loc-addr">{l.street} · {l.city}</p>
+            <div class="loc-meta">
+              <div>
+                <p class="l">TELEFONE</p>
+                <a href={`tel:${l.phone}`}>{display(l.phone)}</a>
+              </div>
+              <div>
+                <p class="l">HORÁRIO</p>
+                {l.hours}
+              </div>
+            </div>
+          </div>
+        ))}
+      </address>
+    </div>
+    <div class="rv d1">
+      <form class="cform" id="cform" aria-label="Formulário de contacto">
+        <div class="fgrp">
+          <label class="flabel" for="cName">Nome</label>
+          <input class="finput" id="cName" type="text" placeholder="O seu nome" autocomplete="name" required />
+        </div>
+        <div class="fgrp">
+          <label class="flabel" for="cEmail">Email</label>
+          <input class="finput" id="cEmail" type="email" placeholder="email@exemplo.pt" autocomplete="email" required />
+        </div>
+        <div class="fgrp">
+          <label class="flabel" for="cPhone">Telefone</label>
+          <input class="finput" id="cPhone" type="tel" placeholder="+351 ___ ___ ___" autocomplete="tel" />
+        </div>
+        <div class="fgrp">
+          <label class="flabel" for="cMsg">Mensagem</label>
+          <textarea class="finput" id="cMsg" placeholder="Em que viatura está interessado?" required></textarea>
+        </div>
+        <button class="csend" id="csend" type="submit">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
