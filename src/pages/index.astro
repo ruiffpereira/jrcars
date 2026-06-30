@@ -27,9 +27,18 @@ import Footer from '../components/Footer.astro';
 <script>
   const fmt = (n) => n.toLocaleString('pt-PT');
 
-  /* nav scroll state */
+  /* nav scroll state + barra de ações fixa (mobile) */
   const navEl = document.getElementById('nav');
-  window.addEventListener('scroll', () => navEl?.classList.toggle('scrolled', window.scrollY > 30));
+  const actionBar = document.getElementById('actionBar');
+  const heroEl = document.querySelector('.hero');
+  function onScroll() {
+    navEl?.classList.toggle('scrolled', window.scrollY > 30);
+    if (actionBar && heroEl) {
+      actionBar.classList.toggle('show', window.scrollY > heroEl.offsetHeight - 140);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   /* smooth scroll helper */
   function navTo(id) {
@@ -98,6 +107,14 @@ import Footer from '../components/Footer.astro';
   });
   document.getElementById('filters')?.addEventListener('submit', (e) => e.preventDefault());
   applySort(); applyFilters();
+
+  /* toggle de filtros (mobile) */
+  const filtersForm = document.getElementById('filters');
+  const filtersToggle = document.getElementById('filtersToggle');
+  filtersToggle?.addEventListener('click', () => {
+    const open = filtersForm.classList.toggle('open');
+    filtersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
 
   /* hero quick search -> catalog */
   document.getElementById('qsearch')?.addEventListener('submit', (e) => {

@@ -10,6 +10,14 @@ import { cars, brands, fuels, fmt } from '../data/cars.js';
       </div>
     </div>
 
+    <button class="filters-toggle" id="filtersToggle" type="button" aria-expanded="false" aria-controls="filters">
+      <span class="ft-left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        Filtrar viaturas
+      </span>
+      <svg class="ft-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
     <form class="filters rv" id="filters" aria-label="Filtrar viaturas">
       <div class="f-grp">
         <label for="fBrand">Marca</label>
