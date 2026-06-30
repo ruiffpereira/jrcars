@@ -1,0 +1,20 @@
+{
+  "name": "JRcars — Usados Certificados",
+  "short_name": "JRcars",
+  "description": "Stand de automóveis usados certificados em Lisboa e Porto. Viaturas com garantia e financiamento à medida.",
+  "lang": "pt-PT",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14161a",
+  "theme_color": "#14161a",
+  "categories": ["shopping", "business", "automotive"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
