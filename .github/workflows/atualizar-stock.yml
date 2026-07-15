@@ -1,0 +1,30 @@
+# Rebuild periódico para o site refletir o stock atual do StandVirtual.
+# Num site estático, o stock só muda quando há um novo build+deploy — este
+# workflow dispara o build hook do alojamento (Netlify / Vercel / Cloudflare
+# Pages) 4x por dia. As variáveis SV_* devem estar configuradas no alojamento.
+#
+# Setup (uma vez): criar um "build hook" no painel do alojamento e guardar o
+# URL como secret DEPLOY_HOOK_URL neste repositório GitHub
+# (Settings → Secrets and variables → Actions).
+
+name: Atualizar stock (StandVirtual)
+
+on:
+  schedule:
+    - cron: '0 6,10,14,18 * * *' # 4x/dia (UTC)
+  workflow_dispatch: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar build hook do alojamento
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::error::Secret DEPLOY_HOOK_URL não configurado — criar um build hook no alojamento (Netlify/Vercel/Cloudflare Pages) e guardar o URL como secret."
+            exit 1
+          fi
+          curl -fsS -X POST "$DEPLOY_HOOK_URL"
+          echo "Build hook disparado — o alojamento vai reconstruir o site com o stock atual."

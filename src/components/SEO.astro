@@ -55,9 +55,9 @@ const inventoryLd = {
       '@type': 'Car',
       name: c.name,
       brand: { '@type': 'Brand', name: c.brand },
-      vehicleModelDate: String(c.year),
+      ...(c.year ? { vehicleModelDate: String(c.year) } : {}),
       fuelType: c.fuel,
-      mileageFromOdometer: { '@type': 'QuantitativeValue', value: c.km, unitCode: 'KMT' },
+      ...(c.km > 0 ? { mileageFromOdometer: { '@type': 'QuantitativeValue', value: c.km, unitCode: 'KMT' } } : {}),
       image: c.img,
       offers: {
         '@type': 'Offer',

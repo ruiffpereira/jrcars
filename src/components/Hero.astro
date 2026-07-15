@@ -1,10 +1,10 @@
 ---
 import { brands, fuels, cars, fmt } from '../data/cars.js';
-// Viatura em destaque para o hero (Mercedes A 250 e)
+// Viatura em destaque: com stock real, a mais recente; na demo, o Mercedes
 const feat = cars.find((c) => c.id === 'mercedes-a-250e') ?? cars[0];
 // Mensalidade indicativa: financiado a 120 meses, 10% de entrada, TAEG 8,9%
-const down = Math.round(feat.price * 0.1);
-const financed = feat.price - down;
+const down = feat ? Math.round(feat.price * 0.1) : 0;
+const financed = feat ? feat.price - down : 0;
 const r = 0.089 / 12;
 const monthly = Math.round((financed * r) / (1 - Math.pow(1 + r, -120)));
 ---
@@ -53,15 +53,16 @@ const monthly = Math.round((financed * r) / (1 - Math.pow(1 + r, -120)));
         </div>
       </form>
     </div>
+    {feat && (
     <div class="hero-visual">
       <div class="hero-photo">
-        <img src={feat.img} width="900" height="675" alt={`${feat.name} — viatura em destaque`} fetchpriority="high" />
+        <img src={feat.imgLarge ?? feat.img} width="900" height="675" alt={`${feat.name} — viatura em destaque`} fetchpriority="high" />
       </div>
       <div class="hero-card">
         <div class="hero-card-top">
           <div class="hero-card-l">
             <p class="n">Destaque</p>
-            <p class="s">{feat.name} · {feat.year}</p>
+            <p class="s">{feat.name}{feat.year ? ` · ${feat.year}` : ''}</p>
           </div>
           <p class="hero-card-p">€ {fmt(feat.price)}</p>
         </div>
@@ -74,5 +75,6 @@ const monthly = Math.round((financed * r) / (1 - Math.pow(1 + r, -120)));
         </div>
       </div>
     </div>
+    )}
   </div>
 </header>

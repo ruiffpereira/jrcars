@@ -84,7 +84,7 @@ import { cars, brands, fuels, fmt } from '../data/cars.js';
           data-fuel={c.fuel}
           data-price={c.price}
           data-km={c.km}
-          data-year={c.year}
+          data-year={c.year ?? 0}
         >
           <div class="card-img">
             <img src={c.img} width="700" height="481" alt={`${c.name} usado à venda`} loading="lazy" />
@@ -95,8 +95,8 @@ import { cars, brands, fuels, fmt } from '../data/cars.js';
           <div class="card-body">
             <h3 class="card-name">{c.name}</h3>
             <div class="card-specs">
-              <span class="spec">{c.year}</span>
-              <span class="spec">{fmt(c.km)} km</span>
+              {c.year && <span class="spec">{c.year}</span>}
+              {c.km > 0 && <span class="spec">{fmt(c.km)} km</span>}
               <span class="spec">{c.fuel}</span>
             </div>
             <div class="card-foot">

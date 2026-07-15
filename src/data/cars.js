@@ -1,7 +1,11 @@
-// Dados das viaturas em stock. Edite aqui para gerir o catálogo.
-// As páginas e o JSON-LD (SEO) são geradas a partir desta lista.
+// Stock de viaturas. Com o StandVirtual configurado (ver .env.example), o stock
+// real do stand é carregado automaticamente em cada build a partir dos anúncios
+// ativos da conta; sem configuração usa-se a lista de demonstração abaixo.
+// As páginas e o JSON-LD (SEO) são geradas a partir de `cars`.
+import { loadStandvirtualStock } from './standvirtual.js';
 
-export const cars = [
+/** @type {import('./standvirtual.js').Car[]} */
+const demoCars = [
   { id: 'porsche-911-carrera-s',  semi: true,  brand: 'Porsche',       name: 'Porsche 911 Carrera S', fuel: 'Gasolina', year: 2021, km: 18000, price: 118900, img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80' },
   { id: 'bmw-m4-competition',     semi: false, brand: 'BMW',           name: 'BMW M4 Competition',    fuel: 'Gasolina', year: 2022, km: 12400, price: 96500,  img: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80' },
   { id: 'mercedes-gle-400d',      semi: false, brand: 'Mercedes-Benz', name: 'Mercedes GLE 400d',     fuel: 'Diesel',   year: 2020, km: 62000, price: 68900,  img: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=700&q=80' },
@@ -15,6 +19,13 @@ export const cars = [
   { id: 'bmw-ix3-m-sport',        semi: true,  brand: 'BMW',           name: 'BMW iX3 M Sport',       fuel: 'Elétrico', year: 2023, km: 21000, price: 59900,  img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=700&q=80' },
   { id: 'mercedes-c-220d',        semi: false, brand: 'Mercedes-Benz', name: 'Mercedes C 220 d',      fuel: 'Diesel',   year: 2022, km: 38000, price: 46900,  img: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=700&q=80' },
 ];
+
+const liveCars = await loadStandvirtualStock();
+if (!liveCars) {
+  console.warn('[standvirtual] Sem credenciais configuradas — a usar viaturas de demonstração (ver .env.example).');
+}
+
+export const cars = liveCars ?? demoCars;
 
 export const brands = [...new Set(cars.map(c => c.brand))].sort();
 export const fuels  = [...new Set(cars.map(c => c.fuel))].sort();
