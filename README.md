@@ -1,4 +1,5 @@
 # JRcars — Website (Astro)
+> **Lê-se:** quem instala ou corre o repo · **Verdadeiro por:** `coerencia.test.mjs` (caminhos)
 
 Website de venda de automóveis usados certificados, construído em **Astro** com foco em **SEO** e **acessibilidade**.
 
